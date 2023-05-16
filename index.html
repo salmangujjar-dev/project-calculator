@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Project Calculator</title>
+    <link rel="stylesheet" href="index.css" />
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.js"
+      integrity="sha512-8Z5++K1rB3U+USaLKG6oO8uWWBhdYsM3hmdirnOEWp8h2B1aOikj5zBzlXs8QOrvY9OxEnD2QDkbSKKpfqcIWw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+      integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
+      crossorigin="anonymous"
+    ></script>
+    <script src="index.js"></script>
+  </head>
+  <body>
+    <h1>Calculator</h1>
+    <div class="fields">
+      <div class="form-group">
+        <label for="input">Input:</label>
+        <input type="text" class="form-control" id="input" onblur="this.focus()" autofocus />
+      </div>
+      <div class="form-group">
+        <label for="output">Output:</label>
+        <input type="text" class="form-control" id="output" readonly />
+      </div>
+    </div>
+
+    <div class="operations d-flex flex-column flex-wrap col-md-8 mx-auto">
+        <button id="operation" class="btn btn-info" value="(">(</button>
+        <button id="operation" class="btn btn-info" value="+">+</button>
+        <button id="operation" class="btn btn-info" value="^">^</button>
+        <button id="operation" class="btn btn-info" value="sqrt(">sqrt()</button>
+        
+        <button id="operation" class="btn btn-info" value=")">)</button>
+        <button id="operation" class="btn btn-info" value="-">-</button>
+        <button id="operation" class="btn btn-info" value="2.7182">e</button>
+        <button id="operation" class="btn btn-info" value="cos(">cos()</button>
+        
+        <button id="operation" class="btn btn-danger" id="DEL" value="del">DEL</button>
+        <button id="operation" class="btn btn-info" value="*">*</button>
+        <button id="operation" class="btn btn-info" value="3.1415">pi</button>
+        <button id="operation" class="btn btn-info" value="sin(">sin()</button>
+        
+        <button id="operation" class="btn btn-danger" id="AC" value="ac">AC</button>
+        <button id="operation" class="btn btn-info" value="/">/</button>
+        <button id="operation" class="btn btn-info" value="tan(">tan()</button>
+        <button id="assign" class="btn btn-primary">Assign</button>
+
+        <button id="operation" class="btn btn-success" value="=">=</button>
+      </div>
+
+      <div class="d-flex mx-auto justify-content-center mt-5">
+        <button class="btn btn-info" id="history" data-toggle="modal" data-target="#modal">User History</button>
+        <button class="btn btn-info" id="variables" data-toggle="modal" data-target="#modal">User Variables</button>
+
+
+      </div>
+    </div>
+
+
+    <!-- Modal -->
+    <div id="modal" class="modal fade" role="dialog">
+      <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title" id="modal-title"></h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+          <div class="modal-body">
+            <table class="table" id="modal-content">
+            </table>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    
+
+
+
+    <!--
+    <div class="keys" id="keys">
+      <div class="options-keys">
+        <button class="calc-btn" id="clear">AC</button>
+        <button class="calc-btn" id="del">DEL</button>
+      </div>
+      <div class="trignometry-keys" id="opertaors">
+        <button class="calc-btn" id="trignometry-btn">(</button>
+        <button class="calc-btn" id="trignometry-btn">)</button>
+        <button class="calc-btn" id="trignometry-btn" value="sqrt(">sqrt</button
+        ><br />
+        <button class="calc-btn" id="trignometry-btn" value="sin(">sin</button>
+        <button class="calc-btn" id="trignometry-btn" value="tan(">tan</button>
+        <button class="calc-btn" id="trignometry-btn" value="cos(">cos</button>
+      </div>
+      <div class="operators-keys" id="opertaors">
+        <button class="calc-btn" id="operator-btn">+</button>
+        <button class="calc-btn" id="operator-btn">-</button>
+        <button class="calc-btn" id="operator-btn">*</button>
+        <button class="calc-btn" id="operator-btn">/</button>
+        <button class="calc-btn" id="operator-btn">=</button>
+        <button class="calc-btn" id="operator-btn">^</button>
+      </div>
+
+   
+
+
+      <div>
+
+      <div class="numerical-keys" id="numerical-btn">
+        <button class="calc-btn" id="numeric-btn">1</button>
+        <button class="calc-btn" id="numeric-btn">2</button>
+        <button class="calc-btn" id="numeric-btn">3</button><br />
+        <button class="calc-btn" id="numeric-btn">4</button>
+        <button class="calc-btn" id="numeric-btn">5</button>
+        <button class="calc-btn" id="numeric-btn">6</button><br />
+        <button class="calc-btn" id="numeric-btn">7</button>
+        <button class="calc-btn" id="numeric-btn">8</button>
+        <button class="calc-btn" id="numeric-btn">9</button><br />
+        <button class="zero calc-btn" id="numeric-btn">0</button>
+      </div>
+    --></div>
+  </body>
+</html>
