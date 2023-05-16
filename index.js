@@ -77,6 +77,13 @@ $(() => {
         $('#input').val("");
         $('#output').val("");
 
+        for (const key in userVariables) {
+            delete userVariables[key];
+        }
+        for (const key in userHistory) {
+            delete userHistory[key];
+        }
+
         console.log("Screen is cleared!");
     }
 
