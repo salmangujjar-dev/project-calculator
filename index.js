@@ -1,24 +1,29 @@
 var input = "";
 var result = 0;
 
+const userVariables = {};
+const userHistory = {};
+
 $(() => {
 
     var operationBtn = document.querySelectorAll('#operation');
     var inputElement = document.getElementById('input');
     let assignmentPending = false;
 
-    const userVariables = {};
-    const userHistory = {};
-
     function evalInput(){
         input = $('#input').val();
+        input = input.replace(/\s/g, '');
+
         if (assignmentPending == true){
             key = input.slice(0, input.indexOf('='));
             val = input.slice(input.indexOf('=') + 1);
             userVariableCreation({ [key]: val});
             assignmentPending = false;
-            
+            $('#input').val("");
+            $('#output').val("");            
+            $('#output').attr('placeholder', 'Variable Created!');            
             console.log(userVariables);
+
             return;
         }
 
@@ -146,23 +151,51 @@ $(() => {
     $('#variables').click(() => {
         console.log(userVariables);
 
-        $('#modal-content').html("<tr><th>Variable</th><th>Value</th></tr>");
         $('#modal-title').text("User Variables");
+        if (Object.keys(userVariables).length === 0){
+            $('#modal-body').html("<h4>No User Variable Found!</h4>");
+            return;
+        }
+
+        $('#modal-body').html("<div class='row'><h6 class='col-6 font-weight-bold'>Variable</h6><h6 class='col-6 font-weight-bold'>Value</h6></div>");
         for (const key in userVariables) {
             console.log(`${key}: ${userVariables[key]}`);
-            $('#modal-content').html($('#modal-content').html() + `<tr><td>${key}</td><td>${userVariables[key]}</td></tr>`);
+            $('#modal-body').html($('#modal-body').html() + `<div class='row d-flex align-items-center mt-3'><span class='col-6'>${key}</span><span class='col-6'>${userVariables[key]}</span></div>`);
         }
     });
 
     $('#history').click(() => {
         console.log(userHistory);
 
-        $('#modal-content').html("<tr><th>Input</th><th>Output</th></tr>");
         $('#modal-title').text("User History");
+        if (Object.keys(userHistory).length === 0){
+            $('#modal-body').html("<h4>No User History Found!</h4>");
+            return;
+        }
+
+        $('#modal-body').html("<div class='row'><h6 class='col-4 font-weight-bold'>Input</h6><h6 class='col-4 font-weight-bold'>Output</h6><h6 class='col-4 font-weight-bold'>Options</h6></div>");
         for (const key in userHistory) {
-            console.log(`${key}: ${userHistory[key]}`);
-            $('#modal-content').html($('#modal-content').html() + `<tr><td>${key}</td><td>${userHistory[key]}</td></tr>`);
+            keyStr = JSON.stringify(key);
+            $('#modal-body').html($('#modal-body').html() + `<div class='row d-flex align-items-center mt-3'><span class='col-4'>${key}</span><span class='col-4'>${userHistory[key]}</span><i class='col-2 fa fa-trash fa-lg' onclick='historyDel(${keyStr})' title="Delete"></i><i class='col-2 fa fa-keyboard fa-lg' onclick='useAsInput(${keyStr})' title="Use as Input"></i></div>`);
         }
     });
 
+
 });
+
+function historyDel(key){
+    delete userHistory[key];
+    $('#output').val(`History Deleted for Input: ${key}`);
+    $('#modal').modal("hide");
+
+    console.log(`Key: ${key} Deleted!`);
+    console.log(userHistory);
+}
+
+function useAsInput(key){
+    $('#input').val(key);
+    $('#output').val(userHistory[key]);
+    $('#modal').modal("hide");
+
+    console.log(`Using Key: ${key} as Input!`);
+}

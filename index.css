@@ -8,4 +8,12 @@
 .operations>* {
     flex: 1 1 80px;
 }
+.fa-trash{
+    color:red;
+    cursor: pointer;
+}
 
+.fa-keyboard{
+    color:green;
+    cursor: pointer;
+}
