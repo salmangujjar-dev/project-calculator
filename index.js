@@ -8,17 +8,15 @@ $(() => {
 
     var operationBtn = document.querySelectorAll('#operation');
     var inputElement = document.getElementById('input');
-    let assignmentPending = false;
 
     function evalInput(){
         input = $('#input').val();
         input = input.replace(/\s/g, '');
 
-        if (assignmentPending == true){
+        if (input.includes("=")){
             key = input.slice(0, input.indexOf('='));
             val = input.slice(input.indexOf('=') + 1);
             userVariableCreation({ [key]: val});
-            assignmentPending = false;
             $('#input').val("");
             $('#output').val("");            
             $('#output').attr('placeholder', 'Variable Created!');            
@@ -105,11 +103,12 @@ $(() => {
             evalInput();
 
             console.log("Entered is pressed!");
-        } else if (e.which == 61){
-            assignmentPending = true;
+        } 
+        // else if (e.which == 61){
+        //     assignmentPending = true;
 
-            console.log("Varible creation is pending!");
-        }
+        //     console.log("Varible creation is pending!");
+        // }
     });
 
     operationBtn.forEach(operation => {
